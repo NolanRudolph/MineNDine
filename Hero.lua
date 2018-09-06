@@ -1,11 +1,16 @@
 local Hero = {
-    speed = 6000
+    speed = 6000,
+    roomCooldown = 0
 }
 
 -- Example used newHero(650, 650, 50)
 
 function Hero:newHero(xPos, yPos, width, height)
-    self.body = love.physics.newBody(world, xPos/2-width/2, yPos/2-height/2, "dynamic")
+    self.xPos = xPos
+    self.yPos = yPos
+    self.width = width
+    self.height = height
+    self.body = love.physics.newBody(world, xPos - width/2, yPos - height/2, "dynamic")
     self.body:setLinearDamping(20)
     self.shape = love.physics.newRectangleShape(width, height)
     self.fixture = love.physics.newFixture(self.body, self.shape)
@@ -21,7 +26,7 @@ function Hero:renderHero()
 
     --[[ Draw Body ]]--
     x, y = self.body:getPosition()
-    love.graphics.rectangle("fill", x, y, 50, 50)
+    love.graphics.rectangle("fill", x, y, self.width, self.height)
 end
 
 function Hero:update()

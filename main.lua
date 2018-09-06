@@ -7,6 +7,7 @@ Room = require 'Room'
 METER_IN_PX = 64
 TILE_PX_SIZE = 32
 
+
 function love.load()
     world = love.physics.newWorld(0, 0, true)  --create a world for the bodies to exist in with horizontal gravity of 0 and vertical gravity of 9.81
     
@@ -16,17 +17,85 @@ function love.load()
     enemies = {}
 
     --[[ Loading Hero ]]--
-
-    Hero:newHero(250, 250, 50, 80)
-    Room:new()
+    math.randomseed(os.time())
+    Hero:newHero(400, 400, 50, 80)
+    table.insert(World.rooms, Room:new(_, 1, 'start'))
+    table.insert(World.rooms, Room:new(_, 1, 'left'))
+    table.insert(World.rooms, Room:new(_, 1, 'right'))
+    table.insert(World.rooms, Room:new(_, 1, 'up'))
+    table.insert(World.rooms, Room:new(_, 1, 'down'))
+    for i = 1, #World.rooms do
+        World.rooms[i]:initTiles()
+    end
     Room:initTiles()
-
 end
 
 function love.update(dt)  -- Updates Every dt (Delta Time)
     world:update(dt)  --this puts the world into motion
     Hero:update()
+
+    print(Hero.body:getY())
+    if Hero.roomCooldown > 0 then
+        Hero.roomCooldown = Hero.roomCooldown - 1000 * dt
+    end
+
+    --[[--[[  SCREEN SHIFTING ]]--]]--
+
+    xComp = Hero.body:getX()
+    yComp = Hero.body:getY()
+
+    --[[ Changing Left ]]--
+    if xComp > -50 and xComp < -40 then
+        if Hero.roomCooldown > 0 then
+            print("You can't leave just yet!")
+            Hero.body:setX(0)
+            return
+        end
+        World.currentRoom[1] = World.currentRoom[1] - 1  -- Decrease World's RoomX
+        print('{' .. World.currentRoom[1] .. ', ' .. World.currentRoom[2] .. '}')
+        Hero.roomCooldown = 1000
+        Hero.body:setX(800)
+
+    --[[ Changing Right ]]--
+    elseif xComp > 840 and xComp < 850 then
+        if Hero.roomCooldown > 0 then
+            print("You can't leave just yet!")
+            Hero.body:setX(850)
+            return
+        end
+        World.currentRoom[1] = World.currentRoom[1] + 1  -- Decrease World's RoomX
+        print('{' .. World.currentRoom[1] .. ', ' .. World.currentRoom[2] .. '}')
+        Hero.roomCooldown = 1000
+        Hero.body:setX(-50)
+
+    --[[ Changing Up ]]--
+    elseif yComp < -70 and xComp > -80 then
+        if Hero.roomCooldown > 0 then
+            print("You can't leave just yet!")
+            Hero.body:setY(0)
+            return
+        end
+        World.currentRoom[2] = World.currentRoom[2] + 1  -- Decrease World's RoomX
+        print('{' .. World.currentRoom[1] .. ', ' .. World.currentRoom[2] .. '}')
+        Hero.roomCooldown = 1000
+        Hero.body:setY(800)
+
+    --[[ Changing Down ]]--
+    elseif yComp > 790 and yComp < 800 then
+        if Hero.roomCooldown > 0 then
+            print("You can't leave just yet!")
+            Hero.body:setY(720)
+            return
+        end
+        World.currentRoom[2] = World.currentRoom[2] - 1  -- Decrease World's RoomX
+        print('{' .. World.currentRoom[1] .. ', ' .. World.currentRoom[2] .. '}')
+        Hero.roomCooldown = 1000
+        Hero.body:setY(-50)
+
+    end
+
 end
+
 
 function love.keydown(key)
 
@@ -34,7 +103,16 @@ end
 
 
 function love.draw()  -- Updates Every Frame
+    
+    for i = 1, #World.rooms do
+        if World.currentRoom[1] == World.rooms[i].IDX then
+            if World.currentRoom[2] == World.rooms[i].IDY then
+                World.rooms[i]:renderTiles()
+            end
+        end
+    end
+    love.graphics.setColor(0, 0, 0)
+    love.graphics.print('This is Room {' .. World.currentRoom[1] .. ', ' .. World.currentRoom[2] .. '}', 15, 15)
     love.graphics.setColor(255, 255, 255)
-    Room:renderTiles()
     Hero:renderHero()
 end
