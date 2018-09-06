@@ -1,6 +1,7 @@
 local Room = {
     tiles = {},
-    ID = nil,
+    IDX = nil,
+    IDY = nil,
     up = nil,
     down = nil,
     left = nil,
@@ -13,16 +14,13 @@ TILE_PX_SIZE = 32
 ROOM_TILE_SIZE = 25
 nextRoomID = 0
 
-function Room:new(room, isStart, direction)
+function Room:new(room, IDX, IDY, index)
     room = room or {}
     setmetatable(room, self)
     room.tiles = {}
-    if isStart then
-        room.IDX, room.IDY = World:getRoomStartX(direction), World:getRoomStartY(direction)
-    else
-        room.IDX, room.IDY = World:getRoomX(direction), World:getRoomY(direction)
-    end
-
+    room.IDX = IDX
+    room.IDY = IDY
+    room.index = index
     self.__index = self
     return room
 end
