@@ -5,10 +5,10 @@ Hero = require 'Hero'
 World = require 'World'
 Room = require 'Room'
 METER_IN_PX = 64
-TILE_PX_SIZEX = 24
-TILE_PX_SIZEY = 16
-ROOM_TILE_SIZEX = 32
-ROOM_TILE_SIZEY = 48
+TILE_PX_SIZEX = 32
+TILE_PX_SIZEY = 24
+ROOM_TILE_SIZEX = 24
+ROOM_TILE_SIZEY = 36
 
 
 function love.load()
