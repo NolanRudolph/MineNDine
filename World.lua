@@ -37,69 +37,24 @@ function World:getRoomStartY(direction)
     end
 end
 
-function World:checkEntries(direction)
-    local leftFound = 0
-    local rightFound = 0
-    local upFound = 0
-    local downFound = 0
-    local allGood = 0  -- Need 3 to Override Loop
-    _compX = self.currentRoom[1] - 1  -- Left
-    compX = self.currentRoom[1] + 1  -- Right
-    _compY = self.currentRoom[2] - 1  -- Down
-    compY = self.currentRoom[2] + 1  -- Up
-
+function World:checkEntries()
+    local found = 0
     for i = 1, #self.rooms do
         iRoom = self.rooms[i]
         roomX = iRoom.IDX
         roomY = iRoom.IDY
-        -- Find CurrentIndex To Ease Love.Draw()
         if roomX == self.currentRoom[1] and roomY == self.currentRoom[2] then
+            found = 1
             self.currentIndex = iRoom.index
-        elseif roomX == _compX and roomY == self.currentRoom[2] then
-            leftFound = 1
-            allGood = allGood + 1    
-            print("Found Left Room!")        
-        elseif roomX == compX and roomY == self.currentRoom[2] then
-            rightFound = 1
-            allGood = allGood + 1
-            print("Found Right Room!")     
-        elseif roomY == _compY and roomX == self.currentRoom[1] then
-            downFound = 1
-            allGood = allGood + 1
-            print("Found Down Room!")     
-        elseif roomY == compY and roomX == self.currentRoom[1] then
-            upFound = 1
-            allGood = allGood + 1
-            print("Found Up Room!")     
-        end
-
-        if allGood == 4 then
             return
         end
     end
-    if leftFound == 0 then
+    if found == 0 then
         local myIndex = World:getIndex()
-        table.insert(self.rooms, Room:new(_, self.currentRoom[1] - 1, self.currentRoom[2], myIndex))
+        table.insert(self.rooms, Room:new(_, self.currentRoom[1], self.currentRoom[2], myIndex))
         self.rooms[myIndex]:initTiles()
-        print("Created: "..myIndex)
-    end
-    if rightFound == 0 then
-        local myIndex = World:getIndex()
-        table.insert(self.rooms, Room:new(_, self.currentRoom[1] + 1, self.currentRoom[2], myIndex))
-        self.rooms[myIndex]:initTiles()
-        print("Created: "..myIndex)
-    end
-    if upFound == 0 then
-        local myIndex = World:getIndex()
-        table.insert(self.rooms, Room:new(_, self.currentRoom[1], self.currentRoom[2] + 1, myIndex))
-        self.rooms[myIndex]:initTiles()
-        print("Created: "..myIndex)
-    end
-    if downFound == 0 then
-        local myIndex = World:getIndex()
-        table.insert(self.rooms, Room:new(_, self.currentRoom[1], self.currentRoom[2] - 1, myIndex))
-        self.rooms[myIndex]:initTiles()
-        print("Created: "..myIndex)
+        self.currentIndex = self.rooms[myIndex].index
+        print("Made a Room!")
     end
 end
             

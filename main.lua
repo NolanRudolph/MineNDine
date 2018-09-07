@@ -23,13 +23,7 @@ function love.load()
     math.randomseed(os.time())
     Hero:newHero(400, 400, 50, 80)
     table.insert(World.rooms, Room:new(_, 0, 0, World:getIndex()))   -- Start (1)
-    table.insert(World.rooms, Room:new(_, -1, 0, World:getIndex()))  -- Left  (2)
-    table.insert(World.rooms, Room:new(_, 0, 1, World:getIndex()))   -- Up    (3)
-    table.insert(World.rooms, Room:new(_, 1, 0, World:getIndex()))   -- Right (4)
-    table.insert(World.rooms, Room:new(_, 0, -1, World:getIndex()))  -- Down  (5)
-    for i = 1, #World.rooms do
-        World.rooms[i]:initTiles()
-    end
+    World.rooms[1]:initTiles()
 end
 
 function love.update(dt)  -- Updates Every dt (Delta Time)
