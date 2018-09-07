@@ -11,24 +11,12 @@ end
 function Randomizer:pickImage()
 
     local image
-    local RandNum = math.random(1, 6)
-    if RandNum == 1 then
-        image = love.graphics.newImage('images/red.png')
+    local RandNum = math.random(1, 10)
+    if RandNum >= 1 and RandNum <= 9 then
+        image = love.graphics.newImage('images/brick1.png')
         return image
-    elseif RandNum == 2 then
-        image = love.graphics.newImage('images/orange.png')
-        return image
-    elseif RandNum == 3 then
-        image = love.graphics.newImage('images/yellow.png')
-        return image
-    elseif RandNum == 4 then
-        image = love.graphics.newImage('images/green.png')
-        return image
-    elseif RandNum == 5 then
-        image = love.graphics.newImage('images/blue.png')
-        return image
-    elseif RandNum == 6 then
-        image = love.graphics.newImage('images/purple.png')
+    elseif RandNum == 10 then
+        image = love.graphics.newImage('images/brick2.png')
         return image
     end
 end

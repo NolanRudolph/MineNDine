@@ -37,7 +37,7 @@ function World:getRoomStartY(direction)
     end
 end
 
-function World:checkEntries()
+function World:checkEntries(direction)
     local leftFound = 0
     local rightFound = 0
     local upFound = 0

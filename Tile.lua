@@ -1,7 +1,6 @@
 local Tile = {}
 
 Randomizer = require 'Randomizer'
-TILE_PX_SIZE = 32
 --[[ tileX, tileY is Tile Position ]]--
 
 function Tile:new(tile, x, y)
