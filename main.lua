@@ -43,7 +43,7 @@ function love.update(dt)  -- Updates Every dt (Delta Time)
     local yComp = Hero.body:getY()
 
     --[[ Changing Left ]]--
-    if xComp > -50 and xComp < -40 then
+    if xComp > -60 and xComp < -50 then
         if Hero.roomCooldown > 0 then
             print("You can't leave just yet!")
             Hero.body:setX(0)
@@ -53,10 +53,10 @@ function love.update(dt)  -- Updates Every dt (Delta Time)
         print('{' .. World.currentRoom[1] .. ', ' .. World.currentRoom[2] .. '}')
         World:checkEntries()
         Hero.roomCooldown = 1000
-        Hero.body:setX(800)
+        Hero.body:setX(810)
 
     --[[ Changing Right ]]--
-    elseif xComp > 840 and xComp < 850 then
+    elseif xComp > 850 and xComp < 860 then
         if Hero.roomCooldown > 0 then
             print("You can't leave just yet!")
             Hero.body:setX(850)
@@ -66,10 +66,10 @@ function love.update(dt)  -- Updates Every dt (Delta Time)
         print('{' .. World.currentRoom[1] .. ', ' .. World.currentRoom[2] .. '}')
         World:checkEntries()
         Hero.roomCooldown = 1000
-        Hero.body:setX(-50)
+        Hero.body:setX(-60)
 
     --[[ Changing Up ]]--
-    elseif yComp < -70 and xComp > -80 then
+    elseif yComp < -80 and xComp > -90 then
         if Hero.roomCooldown > 0 then
             print("You can't leave just yet!")
             Hero.body:setY(0)
@@ -79,10 +79,10 @@ function love.update(dt)  -- Updates Every dt (Delta Time)
         print('{' .. World.currentRoom[1] .. ', ' .. World.currentRoom[2] .. '}')
         World:checkEntries()
         Hero.roomCooldown = 1000
-        Hero.body:setY(800)
+        Hero.body:setY(810)
 
     --[[ Changing Down ]]--
-    elseif yComp > 790 and yComp < 800 then
+    elseif yComp > 800 and yComp < 810 then
         if Hero.roomCooldown > 0 then
             print("You can't leave just yet!")
             Hero.body:setY(720)
@@ -92,7 +92,7 @@ function love.update(dt)  -- Updates Every dt (Delta Time)
         print('{' .. World.currentRoom[1] .. ', ' .. World.currentRoom[2] .. '}')
         World:checkEntries()
         Hero.roomCooldown = 1000
-        Hero.body:setY(-50)
+        Hero.body:setY(-90)
 
     end
 
@@ -105,8 +105,6 @@ end
 
 
 function love.draw()  -- Updates Every Frame
-    -- CHANGE THIS TO PART OF CHECK METHOD
-    -- print(self.currentIndex)
     World.rooms[World.currentIndex]:renderTiles()
     love.graphics.setColor(0, 0, 0)
     love.graphics.print('This is Room {' .. World.currentRoom[1] .. ', ' .. World.currentRoom[2] .. '}', 15, 15)
