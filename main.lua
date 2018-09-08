@@ -6,9 +6,9 @@ World = require 'World'
 Room = require 'Room'
 METER_IN_PX = 64
 TILE_PX_SIZEX = 32
-TILE_PX_SIZEY = 24
+TILE_PX_SIZEY = 12
 ROOM_TILE_SIZEX = 24
-ROOM_TILE_SIZEY = 36
+ROOM_TILE_SIZEY = 62
 
 
 function love.load()
@@ -38,7 +38,6 @@ function love.update(dt)  -- Updates Every dt (Delta Time)
 
     local xComp = Hero.body:getX()
     local yComp = Hero.body:getY()
-
     --[[ Changing Left ]]--
     if xComp > -60 and xComp < -50 then
         if Hero.roomCooldown > 0 then
@@ -46,6 +45,7 @@ function love.update(dt)  -- Updates Every dt (Delta Time)
             Hero.body:setX(0)
             return
         end
+        -- this is a comment nolan is awesome
         World.currentRoom[1] = World.currentRoom[1] - 1  -- Decrease World's RoomX
         print('{' .. World.currentRoom[1] .. ', ' .. World.currentRoom[2] .. '}')
         World:checkEntries()

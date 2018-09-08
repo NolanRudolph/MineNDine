@@ -8,27 +8,16 @@ function Randomizer:new(randomizer)
     return randomizer
 end
 
-function Randomizer:pickImage()
+function Randomizer:pickImage(place)
 
     local image
-    local RandNum = math.random(1, 6)
-    if RandNum == 1 then
-        image = love.graphics.newImage('images/brick1.png')
+    if place == 'middle' then
+        image = love.graphics.newImage('images/default.png')
         return image
-    elseif RandNum == 2 then
-        image = love.graphics.newImage('images/brick2.png')
-        return image
-    elseif RandNum == 3 then
-        image = love.graphics.newImage('images/brick3.png')
-        return image
-    elseif RandNum == 4 then
-        image = love.graphics.newImage('images/brick4.png')
-        return image
-    elseif RandNum == 5 then
-        image = love.graphics.newImage('images/brick5.png')
-        return image
-    elseif RandNum == 6 then
-        image = love.graphics.newImage('images/brick6.png')
+    end
+    local RandNum = math.random(1, 3)
+    if RandNum >= 1 then
+        image = love.graphics.newImage('images/brickNoLight.png')
         return image
     end
 end

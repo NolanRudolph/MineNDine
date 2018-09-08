@@ -9,10 +9,10 @@ function love.conf(t)
  
     t.audio.mixwithsystem = true        -- Keep background music playing when opening LOVE (boolean, iOS and Android only)
  
-    t.window.title = "Nolan/Zac Game"         -- The window title (string)
+    t.window.title = "My First Game"         -- The window title (string)
     t.window.icon = nil                 -- Filepath to an image to use as the window's icon (string)
     t.window.width = 768                -- The window width (number)
-    t.window.height = 768               -- The window height (number)
+    t.window.height = 744               -- The window height (number)
     t.window.borderless = false         -- Remove all border visuals from the window (boolean)
     t.window.resizable = false          -- Let the window be user-resizable (boolean)
     t.window.minwidth = 1               -- Minimum window width if the window is resizable (number)
