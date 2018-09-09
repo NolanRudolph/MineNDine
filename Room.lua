@@ -38,7 +38,7 @@ function Room:initTiles()
             math.pow(yAdjust+putY, 2)
 
             if putX >= 9 and putX <= 14 or putY >= 23 and putY <= 37 then
-                if hypot <= 140 then  -- Should this be a light brick?
+                if hypot <= 200 then  -- Should this be a Middle brick?
                     if isOffset == 0 then
                         table.insert(self.tiles, Tile:new(
                             _, putX * TILE_PX_SIZEX, putY * TILE_PX_SIZEY, 'middle'
@@ -46,6 +46,46 @@ function Room:initTiles()
                     else
                         table.insert(self.tiles, Tile:new(
                             _, putX * TILE_PX_SIZEX - TILE_OFFSET, putY * TILE_PX_SIZEY, 'middle'
+                        ))
+                    end
+                elseif putY <= 22 then  -- Should this be a Top Middle Brick?
+                    if isOffset == 0 then
+                        table.insert(self.tiles, Tile:new(
+                            _, putX * TILE_PX_SIZEX, putY * TILE_PX_SIZEY, 'topMid'
+                        ))
+                    else
+                        table.insert(self.tiles, Tile:new(
+                            _, putX * TILE_PX_SIZEX - TILE_OFFSET, putY * TILE_PX_SIZEY, 'topMid'
+                        ))
+                    end
+                elseif putY >= 39 then  -- Should this be a Bottom Middle Brick?
+                    if isOffset == 0 then
+                        table.insert(self.tiles, Tile:new(
+                            _, putX * TILE_PX_SIZEX, putY * TILE_PX_SIZEY, 'botMid'
+                        ))
+                    else
+                        table.insert(self.tiles, Tile:new(
+                            _, putX * TILE_PX_SIZEX - TILE_OFFSET, putY * TILE_PX_SIZEY, 'botMid'
+                        ))
+                    end
+                elseif putX >= 15 then  -- Should this be a Right Middle Brick?
+                    if isOffset == 0 then
+                        table.insert(self.tiles, Tile:new(
+                            _, putX * TILE_PX_SIZEX, putY * TILE_PX_SIZEY, 'rightMid'
+                        ))
+                    else
+                        table.insert(self.tiles, Tile:new(
+                            _, putX * TILE_PX_SIZEX - TILE_OFFSET, putY * TILE_PX_SIZEY, 'rightMid'
+                        ))
+                    end
+                elseif putX <= 8 then  -- Should this be a Left Middle Brick?
+                    if isOffset == 0 then
+                        table.insert(self.tiles, Tile:new(
+                            _, putX * TILE_PX_SIZEX, putY * TILE_PX_SIZEY, 'leftMid'
+                        ))
+                    else
+                        table.insert(self.tiles, Tile:new(
+                            _, putX * TILE_PX_SIZEX - TILE_OFFSET, putY * TILE_PX_SIZEY, 'leftMid'
                         ))
                     end
                 else
@@ -83,7 +123,7 @@ function Room:initTiles()
                                 _, putX * TILE_PX_SIZEX - TILE_OFFSET, putY * TILE_PX_SIZEY, 'topLeft'
                             ))
                         end
-                    elseif putX <= 9 and putY >= 40 then  -- Bottom Left of Circle?
+                    elseif putX <= 9 and putY >= 38 then  -- Bottom Left of Circle?
                         if isOffset == 0 then
                             table.insert(self.tiles, Tile:new(
                                 _, putX * TILE_PX_SIZEX, putY * TILE_PX_SIZEY, 'botLeft'
@@ -93,7 +133,7 @@ function Room:initTiles()
                                 _, putX * TILE_PX_SIZEX - TILE_OFFSET, putY * TILE_PX_SIZEY, 'botLeft'
                             ))
                         end
-                    elseif putX >= 14 and putY >= 40 then  -- Bottom Right of Circle?
+                    elseif putX >= 14 and putY >= 38 then  -- Bottom Right of Circle?
                         if isOffset == 0 then
                             table.insert(self.tiles, Tile:new(
                                 _, putX * TILE_PX_SIZEX, putY * TILE_PX_SIZEY, 'botRight'
