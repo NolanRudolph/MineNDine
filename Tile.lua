@@ -3,13 +3,13 @@ local Tile = {}
 Randomizer = require 'Randomizer'
 --[[ tileX, tileY is Tile Position ]]--
 
-function Tile:new(tile, x, y)
+function Tile:new(tile, x, y, type)
     tile = tile or {}
     setmetatable(tile, self)
     tile.x = x
     tile.y = y
     imagePicker = Randomizer:new()
-    tile.image = imagePicker:pickImage()
+    tile.image = imagePicker:pickImage(type)
     self.__index = self
     
     return tile

@@ -29,105 +29,103 @@ function Room:initTiles()
     local switch = 0
     local xAdjust = -11.5
     local yAdjust = -30
-    local tempCirc
 
     for putY = 0, ROOM_TILE_SIZEY do
         isOffset = switch % 2
         for putX = 0, ROOM_TILE_SIZEX do
+
+            local hypot = math.pow(xAdjust*2.7+putX*2.7, 2) + 
+            math.pow(yAdjust+putY, 2)
+
             if putX >= 9 and putX <= 14 or putY >= 23 and putY <= 37 then
-                -- Quick Path
-                if isOffset == 0 then
-                    table.insert(self.tiles, Tile:new(
-                        _, putX * TILE_PX_SIZEX, putY * TILE_PX_SIZEY
-                    ))
-                else  -- isOffset == 1
-                    table.insert(self.tiles, Tile:new(
-                        _, putX * TILE_PX_SIZEX - TILE_OFFSET, putY * TILE_PX_SIZEY
-                    ))
-                end
-            else
-                -- Circle
-                tempCirc = math.pow(xAdjust*2.5+putX*2.5, 2) + 
-                           math.pow(yAdjust+putY, 2)
-                if tempCirc <= 700 then
-                    if putX > 25  then
-                        if isOffset == 0 then
-                            if tempCirc + TILE_PX_SIZEX <= 700 then
-                                table.insert(self.tiles, Tile:new(
-                                    _, putX * TILE_PX_SIZEX, putY * TILE_PX_SIZEY
-                                ))
-                            end
-                        else
-                            if tempCirc + TILE_PX_SIZEX/2 <= 700 then
-                                table.insert(self.tiles, Tile:new(
-                                    _, putX * TILE_PX_SIZEX - TILE_OFFSET, putY * TILE_PX_SIZEY
-                                ))
-                            end
-                        end
+                if hypot <= 140 then  -- Should this be a light brick?
+                    if isOffset == 0 then
+                        table.insert(self.tiles, Tile:new(
+                            _, putX * TILE_PX_SIZEX, putY * TILE_PX_SIZEY, 'middle'
+                        ))
                     else
+                        table.insert(self.tiles, Tile:new(
+                            _, putX * TILE_PX_SIZEX - TILE_OFFSET, putY * TILE_PX_SIZEY, 'middle'
+                        ))
+                    end
+                else
+                    -- Quick Path
+                    if isOffset == 0 then
+                        table.insert(self.tiles, Tile:new(
+                            _, putX * TILE_PX_SIZEX, putY * TILE_PX_SIZEY, 'norm'
+                        ))
+                    else  -- isOffset == 1
+                        table.insert(self.tiles, Tile:new(
+                            _, putX * TILE_PX_SIZEX - TILE_OFFSET, putY * TILE_PX_SIZEY, 'norm'
+                        ))
+                    end
+                end
+
+            else  -- Circle
+                if hypot <= 700 then  -- Is hypotenuse in the circle?
+                    if putX >= 14 and putY <= 24 then  -- Top Right of Circle?
                         if isOffset == 0 then
                             table.insert(self.tiles, Tile:new(
-                                _, putX * TILE_PX_SIZEX, putY * TILE_PX_SIZEY
+                                _, putX * TILE_PX_SIZEX, putY * TILE_PX_SIZEY, 'topRight'
                             ))
                         else
                             table.insert(self.tiles, Tile:new(
-                                _, putX * TILE_PX_SIZEX - TILE_OFFSET, putY * TILE_PX_SIZEY
+                                _, putX * TILE_PX_SIZEX - TILE_OFFSET, putY * TILE_PX_SIZEY, 'topRight'
+                            ))
+                        end
+                    elseif putX <= 8 and putY <= 24 then  -- Top Left of Circle?
+                        if isOffset == 0 then
+                            table.insert(self.tiles, Tile:new(
+                                _, putX * TILE_PX_SIZEX, putY * TILE_PX_SIZEY, 'topLeft'
+                            ))
+                        else
+                            table.insert(self.tiles, Tile:new(
+                                _, putX * TILE_PX_SIZEX - TILE_OFFSET, putY * TILE_PX_SIZEY, 'topLeft'
+                            ))
+                        end
+                    elseif putX <= 9 and putY >= 40 then  -- Bottom Left of Circle?
+                        if isOffset == 0 then
+                            table.insert(self.tiles, Tile:new(
+                                _, putX * TILE_PX_SIZEX, putY * TILE_PX_SIZEY, 'botLeft'
+                            ))
+                        else
+                            table.insert(self.tiles, Tile:new(
+                                _, putX * TILE_PX_SIZEX - TILE_OFFSET, putY * TILE_PX_SIZEY, 'botLeft'
+                            ))
+                        end
+                    elseif putX >= 14 and putY >= 40 then  -- Bottom Right of Circle?
+                        if isOffset == 0 then
+                            table.insert(self.tiles, Tile:new(
+                                _, putX * TILE_PX_SIZEX, putY * TILE_PX_SIZEY, 'botRight'
+                            ))
+                        else
+                            table.insert(self.tiles, Tile:new(
+                                _, putX * TILE_PX_SIZEX - TILE_OFFSET, putY * TILE_PX_SIZEY, 'botRight'
+                            ))
+                        end    
+                    else
+                        if isOffset == 0 then
+                            table.insert(self.tiles, Tile:new(
+                                _, putX * TILE_PX_SIZEX, putY * TILE_PX_SIZEY, 'norm'
+                            ))
+                        else
+                            table.insert(self.tiles, Tile:new(
+                                _, putX * TILE_PX_SIZEX - TILE_OFFSET, putY * TILE_PX_SIZEY, 'norm'
                             ))
                         end
                     end
                 end
             end
+
         end
         switch = switch + 1
     end
 end
-
-
-
-
---         if switch % 2 == 1 then
---             for putX = 0, ROOM_TILE_SIZEX do
---                 if putX >= 9 and putX <= 15 or putY >= 21 and putY <= 39 then
---                     table.insert(self.tiles, Tile:
---                     new(_, putX * TILE_PX_SIZEX - 16, putY * TILE_PX_SIZEY))
---                 else
---                     tempCirc = math.pow(xAdjust*2.5+putX*2.5, 2) + math.pow(yAdjust+putY, 2)
---                     if tempCirc <= 700 then
---                         if putX > 12 then
---                             if tempCirc + 32 <= 700 then
---                                 table.insert(self.tiles, Tile:
---                                 new(_, putX * TILE_PX_SIZEX - 16, putY * TILE_PX_SIZEY))
---                             end
---                         else
---                             table.insert(self.tiles, Tile:
---                             new(_, putX * TILE_PX_SIZEX - 16, putY * TILE_PX_SIZEY))
---                         end
---                     end
---                 end
---             end
---         else 
---             for putX = 0, ROOM_TILE_SIZEX do
---                 if putX >= 9 and putX <= 15 or putY >= 21 and putY <= 39 then
---                     table.insert(self.tiles, Tile:
---                     new(_, putX * TILE_PX_SIZEX, putY * TILE_PX_SIZEY))
---                 else
---                     tempCirc = math.pow(xAdjust*2.5+putX*2.5, 2) + math.pow(yAdjust+putY, 2)
---                     if tempCirc <= 700 then                 
---                         table.insert(self.tiles, Tile:
---                         new(_, putX * TILE_PX_SIZEX, putY * TILE_PX_SIZEY))
---                     end
---                 end
---             end
---         end
---         switch = switch + 1
---     end
--- end
 
 function Room:renderTiles()
     for i = 1, #self.tiles do
         self.tiles[i]:render()
     end
 end
-
 
 return Room
