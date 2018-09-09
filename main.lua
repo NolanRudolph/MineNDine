@@ -1,5 +1,6 @@
 -- main.lua
 
+conf = require 'conf'
 utils = require 'utils'
 Hero = require 'Hero'
 World = require 'World'
@@ -7,6 +8,7 @@ Room = require 'Room'
 METER_IN_PX = 64
 TILE_PX_SIZEX = 32
 TILE_PX_SIZEY = 12
+TILE_OFFSET = 16
 ROOM_TILE_SIZEX = 24
 ROOM_TILE_SIZEY = 62
 
@@ -104,6 +106,40 @@ end
 function love.draw()  -- Updates Every Frame
     World.rooms[World.currentIndex]:renderTiles()
     love.graphics.setColor(255, 255, 255)
-    love.graphics.print('This is Room {' .. World.currentRoom[1] .. ', ' .. World.currentRoom[2] .. '}', 15, 15)
+    -- love.graphics.print('This is Room {' .. World.currentRoom[1] .. ', ' .. World.currentRoom[2] .. '}', 15, 15)
     Hero:renderHero()
+
+    --[[ TROUBLE SHOOTING ]]--
+
+    local tempX = 0
+    local tempY = 0
+    local offSet = 0
+    local count = 1
+    local tempCount0 = 1
+    local tempCount24 = 1
+    while tempY < love.graphics.getHeight() do
+        tempX = 0
+        while tempX <= love.graphics.getWidth() do
+            if count == 1 then
+                love.graphics.print(tempCount0, tempX + 3, 0)
+                tempCount0 = tempCount0 + 1
+            end
+            if count == 23 then
+                love.graphics.print(tempCount24, tempX + 3, love.graphics.getHeight() - TILE_PX_SIZEY * 2)
+                tempCount24 = tempCount24 + 1
+            end
+            if offSet % 2 == 0 then
+                love.graphics.rectangle('fill', tempX, tempY, 1, TILE_PX_SIZEY)
+            else
+                love.graphics.rectangle('fill', tempX - TILE_OFFSET, tempY, 1, TILE_PX_SIZEY)
+            end
+            tempX = tempX + TILE_PX_SIZEX
+        end
+        love.graphics.print(count, 0, tempY - 1)
+        love.graphics.print(count, love.graphics.getWidth() - TILE_PX_SIZEY - 3, tempY - 1)
+        love.graphics.rectangle('fill', 0, tempY, 1000, 1)
+        tempY = tempY + TILE_PX_SIZEY
+        count = count + 1
+        offSet = offSet + 1
+    end
 end

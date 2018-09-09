@@ -1,3 +1,5 @@
+local conf = {}
+
 function love.conf(t)
     t.identity = "New Game"                    -- The name of the save directory (string)
     t.appendidentity = false            -- Search files in source directory before save directory (boolean)
@@ -45,3 +47,5 @@ function love.conf(t)
     t.modules.video = true              -- Enable the video module (boolean)
     t.modules.window = true             -- Enable the window module (boolean)
 end
+
+return conf
