@@ -103,8 +103,7 @@ end
 
 function love.draw()  -- Updates Every Frame
     World.rooms[World.currentIndex]:renderTiles()
-    love.graphics.setColor(0, 0, 0)
-    love.graphics.print('This is Room {' .. World.currentRoom[1] .. ', ' .. World.currentRoom[2] .. '}', 15, 15)
     love.graphics.setColor(255, 255, 255)
+    love.graphics.print('This is Room {' .. World.currentRoom[1] .. ', ' .. World.currentRoom[2] .. '}', 15, 15)
     Hero:renderHero()
 end
