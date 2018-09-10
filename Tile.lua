@@ -3,8 +3,8 @@ local Tile = {}
 Randomizer = require 'Randomizer'
 --[[ tileX, tileY is Tile Position ]]--
 
-function Tile:new(tile, x, y, type)
-    tile = tile or {}
+function Tile:new(x, y, type)
+    tile = {}
     setmetatable(tile, self)
     tile.x = x
     tile.y = y
