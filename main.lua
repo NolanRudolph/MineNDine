@@ -20,7 +20,7 @@ function love.load()
     --[[ Loading Physics ]]--
 
     love.physics.setMeter(METER_IN_PX)  --the height of a meter our worlds will be 64px
-    enemies = {}
+    -- enemies = {}
 
     --[[ Loading Hero ]]--
     math.randomseed(os.time())
@@ -107,7 +107,7 @@ end
 function love.draw()  -- Updates Every Frame
     World.rooms[World.currentIndex]:renderTiles()
     love.graphics.setColor(255, 255, 255)
-    -- love.graphics.print('This is Room {' .. World.currentRoom[1] .. ', ' .. World.currentRoom[2] .. '}', 15, 15)
+    love.graphics.print('This is Room {' .. World.currentRoom[1] .. ', ' .. World.currentRoom[2] .. '}', 15, 15)
     Hero:renderHero()
 
     -- troubleShoot:render()  --< For Brick Grid

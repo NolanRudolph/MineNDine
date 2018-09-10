@@ -1,12 +1,4 @@
-local Room = {
-    tiles = {},
-    IDX = nil,
-    IDY = nil,
-    up = nil,
-    down = nil,
-    left = nil,
-    right = nil,
-}
+local Room = {}
 
 Tile = require 'Tile'
 nextRoomID = 0
@@ -21,7 +13,6 @@ function Room:new(room, IDX, IDY, index)
     self.__index = self
     return room
 end
-
 
 --[[ To Use in main.lua love.draw() ]]--
 function Room:initTiles()
@@ -102,6 +93,7 @@ function Room:initTiles()
                 end
 
             else  -- Circle
+                -- if hypot > 700 and hypot <= 775 9-9-2018 start here
                 if hypot <= 700 then  -- Is hypotenuse in the circle?
                     if putX >= 14 and putY <= 24 then  -- Top Right of Circle?
                         if isOffset == 0 then
