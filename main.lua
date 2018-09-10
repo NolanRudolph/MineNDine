@@ -11,6 +11,7 @@ World = require 'World'
 Room = require 'Room'
 
 METER_IN_PX = 64
+BUFFER = 0
 
 local shader_code = [[
 
@@ -99,7 +100,9 @@ function love.update(dt)  -- Updates Every dt (Delta Time)
         -- this is a comment nolan is awesome
         World.currentRoom[1] = World.currentRoom[1] - 1  -- Decrease World's RoomX
         print('{' .. World.currentRoom[1] .. ', ' .. World.currentRoom[2] .. '}')
+        BUFFER = 1
         World:checkEntries()
+        BUFFER = 0
         Hero.roomCooldown = 1000
         Hero.body:setX(810)
 
@@ -112,7 +115,9 @@ function love.update(dt)  -- Updates Every dt (Delta Time)
         end
         World.currentRoom[1] = World.currentRoom[1] + 1  -- Decrease World's RoomX
         print('{' .. World.currentRoom[1] .. ', ' .. World.currentRoom[2] .. '}')
+        BUFFER = 1
         World:checkEntries()
+        BUFFER = 0
         Hero.roomCooldown = 1000
         Hero.body:setX(-60)
 
@@ -125,7 +130,9 @@ function love.update(dt)  -- Updates Every dt (Delta Time)
         end
         World.currentRoom[2] = World.currentRoom[2] + 1  -- Decrease World's RoomX
         print('{' .. World.currentRoom[1] .. ', ' .. World.currentRoom[2] .. '}')
+        BUFFER = 1
         World:checkEntries()
+        BUFFER = 0
         Hero.roomCooldown = 1000
         Hero.body:setY(810)
 
@@ -138,7 +145,9 @@ function love.update(dt)  -- Updates Every dt (Delta Time)
         end
         World.currentRoom[2] = World.currentRoom[2] - 1  -- Decrease World's RoomX
         print('{' .. World.currentRoom[1] .. ', ' .. World.currentRoom[2] .. '}')
+        BUFFER = 1
         World:checkEntries()
+        BUFFER = 0
         Hero.roomCooldown = 1000
         Hero.body:setY(-90)
 

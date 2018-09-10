@@ -30,17 +30,19 @@ function Hero:renderHero()
 end
 
 function Hero:update()
-    if love.keyboard.isDown('up') then
-        Hero.body:applyForce(0, -self.speed)
-    end
-    if love.keyboard.isDown('down') then
-        Hero.body:applyForce(0, self.speed)
-    end
-    if love.keyboard.isDown('left') then
-        Hero.body:applyForce(-self.speed, 0)
-    end
-    if love.keyboard.isDown('right') then
-        Hero.body:applyForce(self.speed, 0)
+    if BUFFER == 0 then
+        if love.keyboard.isDown('up') then
+            Hero.body:applyForce(0, -self.speed)
+        end
+        if love.keyboard.isDown('down') then
+            Hero.body:applyForce(0, self.speed)
+        end
+        if love.keyboard.isDown('left') then
+            Hero.body:applyForce(-self.speed, 0)
+        end
+        if love.keyboard.isDown('right') then
+            Hero.body:applyForce(self.speed, 0)
+        end
     end
 end
 
