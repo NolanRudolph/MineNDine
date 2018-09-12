@@ -42,7 +42,7 @@ function Room:initTiles()
             elseif isOffset == 1 then
                 newX = tileX * TILE_PX_SIZEX - TILE_OFFSET
             end
-            if hypot <= 350 then
+            if hypot <= 370 then
                 if hypot <= 150 then
                     table.insert(self.tiles, Tile:new(newX, y, 'middle'))
                 elseif deg >= 25 and deg <= 65 then
@@ -70,7 +70,7 @@ function Room:initTiles()
                         table.insert(self.tiles, Tile:new(newX, y, 'rightMid'))
                     end
                 end
-            elseif tileX >= 10 and tileX <= 16 then
+            elseif tileX >= 9 and tileX <= 16 then  -- Proportionality tileX >= 10
                 if tileX < X_ADJUST then
                     table.insert(self.tiles, Tile:new(newX, y, 'topMid'))
                 else

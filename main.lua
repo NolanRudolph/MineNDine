@@ -40,8 +40,8 @@ vec4 effect(vec4 color, Image image, vec2 uvs, vec2 screen_coords)
 
     vec2 norm_screen = screen_coords / screen;
     vec3 diffuse = vec3(0);
-
-    for (int i = 0; i < num_lights; i++)
+    int i;
+    for (i = 0; i < num_lights; i++)
     {
         Light light = lights[i];
         vec2 norm_pos = light.position / screen;
@@ -60,7 +60,10 @@ vec4 effect(vec4 color, Image image, vec2 uvs, vec2 screen_coords)
 
 ]]
 
--- love.graphics.rectangle('fill', 400, 396, 32, 12)
+topLeft = love.graphics.newImage('images/pixelWalls4.png')
+topRight = love.graphics.newImage('images/pixelWallsRight.png')
+botLeft = love.graphics.newImage('images/pixelWallsBottomLeft.png')
+botRight = love.graphics.newImage('images/pixelWallsBottomRight.png')
 
 function love.load()
     shader = love.graphics.newShader(shader_code)
@@ -97,12 +100,10 @@ function love.update(dt)  -- Updates Every dt (Delta Time)
             Hero.body:setX(0)
             return
         end
-        -- this is a comment nolan is awesome
         World.currentRoom[1] = World.currentRoom[1] - 1  -- Decrease World's RoomX
         print('{' .. World.currentRoom[1] .. ', ' .. World.currentRoom[2] .. '}')
-        BUFFER = 1
+        Hero.body:setLinearVelocity(0, 0)
         World:checkEntries()
-        BUFFER = 0
         Hero.roomCooldown = 1000
         Hero.body:setX(810)
 
@@ -115,9 +116,8 @@ function love.update(dt)  -- Updates Every dt (Delta Time)
         end
         World.currentRoom[1] = World.currentRoom[1] + 1  -- Decrease World's RoomX
         print('{' .. World.currentRoom[1] .. ', ' .. World.currentRoom[2] .. '}')
-        BUFFER = 1
+        Hero.body:setLinearVelocity(0, 0)
         World:checkEntries()
-        BUFFER = 0
         Hero.roomCooldown = 1000
         Hero.body:setX(-60)
 
@@ -130,9 +130,8 @@ function love.update(dt)  -- Updates Every dt (Delta Time)
         end
         World.currentRoom[2] = World.currentRoom[2] + 1  -- Decrease World's RoomX
         print('{' .. World.currentRoom[1] .. ', ' .. World.currentRoom[2] .. '}')
-        BUFFER = 1
+        Hero.body:setLinearVelocity(0, 0)
         World:checkEntries()
-        BUFFER = 0
         Hero.roomCooldown = 1000
         Hero.body:setY(810)
 
@@ -145,9 +144,8 @@ function love.update(dt)  -- Updates Every dt (Delta Time)
         end
         World.currentRoom[2] = World.currentRoom[2] - 1  -- Decrease World's RoomX
         print('{' .. World.currentRoom[1] .. ', ' .. World.currentRoom[2] .. '}')
-        BUFFER = 1
+        Hero.body:setLinearVelocity(0, 0)
         World:checkEntries()
-        BUFFER = 0
         Hero.roomCooldown = 1000
         Hero.body:setY(-90)
 
@@ -156,32 +154,35 @@ end
 
 
 function love.draw()  -- Updates Every Frame
+
+    --[[ Shader Commands ]]--
     love.graphics.setShader(shader)
 
     shader:send("screen", {
         love.graphics.getWidth(),
         love.graphics.getHeight()
     })
-
     shader:send("num_lights", 1)
-
     shader:send("lights[0].position", {
         WIDTH / 2, HEIGHT / 2
     })
-
     shader:send("lights[0].diffuse", {
         1, 1, 1
     })
-
     shader:send("lights[0].power", 15)
 
+
+    
     World.rooms[World.currentIndex]:renderTiles()
     love.graphics.setColor(255, 255, 255)
     love.graphics.print('This is Room {' .. World.currentRoom[1] .. ', ' .. World.currentRoom[2] .. '}', 15, 15)
     Hero:renderHero()
     love.graphics.setShader()
+    love.graphics.draw(topLeft, 0, 0)
+    love.graphics.draw(topRight, 480, 0)
+    love.graphics.draw(botLeft, 0, 468)
+    love.graphics.draw(botRight,480, 468)
 
-    -- troubleShoot:render()  --< For Brick Grid
     
 
 end
