@@ -8,7 +8,6 @@ X_HALF = WIDTH/2
 X_ADJUST = (WIDTH/TILE_PX_SIZEX)/2
 PATH_X = {HEIGHT/8 + 3 * (HEIGHT/8), HEIGHT/8 + 4 * (HEIGHT/8)}
 Y_ADJUST = (HEIGHT/TILE_PX_SIZEY)/2
-TILE_OFFSET = 16
 
 
 function Room:new(room, IDX, IDY, index)
@@ -24,67 +23,61 @@ end
 
 --[[ To Use in main.lua love.draw() ]]--
 function Room:initTiles()
-    local tileY = 0
-    local offset = 0
-    for tileY = 0, HEIGHT/TILE_PX_SIZEY do
-        local actualY = (tileY - Y_ADJUST) * TILE_PX_SIZEY
-        local tileX = 0
-        for tileX = 0, WIDTH/TILE_PX_SIZEX do
-            local isOffset = offset % 2
-            local y = tileY * TILE_PX_SIZEY
+    local axisY = 0
+    for axisY = 0, HEIGHT/TILE_PX_SIZEY do
+        local actualY = (axisY - Y_ADJUST) * TILE_PX_SIZEY
+        local axisX = 0
+        for axisX = 0, WIDTH/TILE_PX_SIZEX do
+
             local image
-            local actualX = (tileX - X_ADJUST) * TILE_PX_SIZEX
-            local hypot = math.sqrt(math.pow(actualX, 2) + math.pow(actualY, 2))
+            local actualX = (axisX - X_ADJUST) * TILE_PX_SIZEX
+            local hypot = math.sqrt(math.pow(actualX+16, 2) + math.pow(actualY+16, 2))
             local deg = (180/math.pi) * math.acos(actualX/hypot)
-            local newX
-            if isOffset == 0 then
-                newX = tileX * TILE_PX_SIZEX
-            elseif isOffset == 1 then
-                newX = tileX * TILE_PX_SIZEX - TILE_OFFSET
-            end
-            if hypot <= 370 then
+            local newX = axisX * TILE_PX_SIZEX
+            local newY = axisY * TILE_PX_SIZEY
+
+            if hypot <= 400 then
                 if hypot <= 150 then
-                    table.insert(self.tiles, Tile:new(newX, y, 'middle'))
+                    table.insert(self.tiles, Tile:new(newX, newY, 'middle'))
                 elseif deg >= 25 and deg <= 65 then
-                    if tileY < Y_ADJUST then
-                        table.insert(self.tiles, Tile:new(newX, y, 'topRight'))
+                    if axisY < Y_ADJUST then
+                        table.insert(self.tiles, Tile:new(newX, newY, 'topRight'))
                     else
-                        table.insert(self.tiles, Tile:new(newX, y, 'botRight'))
+                        table.insert(self.tiles, Tile:new(newX, newY, 'botRight'))
                     end
                 elseif deg >= 65 and deg <= 115 then
-                    if tileY < Y_ADJUST then
-                        table.insert(self.tiles, Tile:new(newX, y, 'topMid'))
+                    if axisY < Y_ADJUST then
+                        table.insert(self.tiles, Tile:new(newX, newY, 'topMid'))
                     else
-                        table.insert(self.tiles, Tile:new(newX, y, 'botMid'))
+                        table.insert(self.tiles, Tile:new(newX, newY, 'botMid'))
                     end
                 elseif deg >= 115 and deg <= 155 then
-                    if tileY < Y_ADJUST then
-                        table.insert(self.tiles, Tile:new(newX, y, 'topLeft'))
+                    if axisY < Y_ADJUST then
+                        table.insert(self.tiles, Tile:new(newX, newY, 'topLeft'))
                     else
-                        table.insert(self.tiles, Tile:new(newX, y, 'botLeft'))
+                        table.insert(self.tiles, Tile:new(newX, newY, 'botLeft'))
                     end
                 else
-                    if tileX < X_ADJUST then
-                        table.insert(self.tiles, Tile:new(newX, y, 'leftMid'))
+                    if axisX < X_ADJUST then
+                        table.insert(self.tiles, Tile:new(newX, newY, 'leftMid'))
                     else
-                        table.insert(self.tiles, Tile:new(newX, y, 'rightMid'))
+                        table.insert(self.tiles, Tile:new(newX, newY, 'rightMid'))
                     end
                 end
-            elseif tileX >= 9 and tileX <= 16 then  -- Proportionality tileX >= 10
-                if tileX < X_ADJUST then
-                    table.insert(self.tiles, Tile:new(newX, y, 'topMid'))
-                else
-                    table.insert(self.tiles, Tile:new(newX, y, 'botMid'))
-                end
-            elseif tileY >= 25 and tileY <= 39 then
-                if tileX < Y_ADJUST then
-                    table.insert(self.tiles, Tile:new(newX, y, 'leftMid'))
-                else
-                    table.insert(self.tiles, Tile:new(newX, y, 'rightMid'))
-                end
+            -- elseif tileX >= 9 and tileX <= 16 then  -- Proportionality tileX >= 10
+            --     if tileX < X_ADJUST then
+            --         table.insert(self.tiles, Tile:new(newX, y, 'topMid'))
+            --     else
+            --         table.insert(self.tiles, Tile:new(newX, y, 'botMid'))
+            --     end
+            -- elseif tileY >= 25 and tileY <= 39 then
+            --     if tileX < Y_ADJUST then
+            --         table.insert(self.tiles, Tile:new(newX, y, 'leftMid'))
+            --     else
+            --         table.insert(self.tiles, Tile:new(newX, y, 'rightMid'))
+            --     end
             end
         end
-        offset = offset + 1
     end
 end
 
