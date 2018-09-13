@@ -15,31 +15,31 @@ function Randomizer:pickImage(type)
         return image
 
     elseif type == 'middle' then
-        image = love.graphics.newImage('images/brickMiddle.png')
+        image = love.graphics.newImage('images/brickMiddleW.png')
 
     elseif type == 'leftMid' then
-        image = love.graphics.newImage('images/brickLeftMiddle.png')
+        image = love.graphics.newImage('images/brickLeftMiddleW.png')
         
     elseif type == 'rightMid' then
-        image = love.graphics.newImage('images/brickRightMiddle.png')
+        image = love.graphics.newImage('images/brickRightMiddleW.png')
  
     elseif type == 'topMid' then
-        image = love.graphics.newImage('images/brickTopMiddle.png')
+        image = love.graphics.newImage('images/brickTopMiddleW.png')
 
     elseif type == 'botMid' then
-        image = love.graphics.newImage('images/brickBottomMiddle.png')
+        image = love.graphics.newImage('images/brickBottomMiddleW.png')
 
     elseif type == 'topLeft' then
-        image = love.graphics.newImage('images/brickTopLeft.png')
+        image = love.graphics.newImage('images/brickTopLeftW.png')
 
     elseif type == 'topRight' then
-        image = love.graphics.newImage('images/brickTopRight.png')
+        image = love.graphics.newImage('images/brickTopRightW.png')
 
     elseif type == 'botLeft' then
-        image = love.graphics.newImage('images/brickBottomLeft.png')
+        image = love.graphics.newImage('images/brickBottomLeftW.png')
 
     elseif type == 'botRight' then
-        image = love.graphics.newImage('images/brickBottomRight.png')
+        image = love.graphics.newImage('images/brickBottomRightW.png')
     end
 
     return image

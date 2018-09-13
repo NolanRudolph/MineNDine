@@ -60,10 +60,6 @@ vec4 effect(vec4 color, Image image, vec2 uvs, vec2 screen_coords)
 
 ]]
 
-topLeft = love.graphics.newImage('images/pixelWalls4.png')
-topRight = love.graphics.newImage('images/pixelWallsRight.png')
-botLeft = love.graphics.newImage('images/pixelWallsBottomLeft.png')
-botRight = love.graphics.newImage('images/pixelWallsBottomRight.png')
 
 function love.load()
     shader = love.graphics.newShader(shader_code)
@@ -172,17 +168,10 @@ function love.draw()  -- Updates Every Frame
     shader:send("lights[0].power", 15)
 
 
-    
     World.rooms[World.currentIndex]:renderTiles()
     love.graphics.setColor(255, 255, 255)
     love.graphics.print('This is Room {' .. World.currentRoom[1] .. ', ' .. World.currentRoom[2] .. '}', 15, 15)
     Hero:renderHero()
     love.graphics.setShader()
-    love.graphics.draw(topLeft, 0, 0)
-    love.graphics.draw(topRight, 480, 0)
-    love.graphics.draw(botLeft, 0, 468)
-    love.graphics.draw(botRight,480, 468)
-
-    
 
 end
