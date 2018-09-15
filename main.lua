@@ -77,6 +77,15 @@ function love.load()
     World.rooms[1]:initTiles()
 end
 
+function love.keypressed(key)
+    if key == 'q' then
+        World.rooms[World.currentIndex]:turnTiles('left')
+
+    elseif key == 'e' then
+        World.rooms[World.currentIndex]:turnTiles('right')
+    end
+end
+
 function love.update(dt)  -- Updates Every dt (Delta Time)
     world:update(dt)  --this puts the world into motion
     Hero:update()
