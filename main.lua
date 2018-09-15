@@ -10,6 +10,17 @@ Hero = require 'Hero'
 World = require 'World'
 Room = require 'Room'
 
+TILE_CYCLE = {
+    love.graphics.newImage('images/brickTopRightW.png'),     -- 1 ^>
+    love.graphics.newImage('images/brickRightMiddleW.png'),  -- 2 >
+    love.graphics.newImage('images/brickBottomRightW.png'),  -- 3 .>
+    love.graphics.newImage('images/brickBottomMiddleW.png'),     -- 4 .
+    love.graphics.newImage('images/brickBottomLeftW.png'),       -- 5 <.
+    love.graphics.newImage('images/brickLeftMiddleW.png'),       -- 6 <
+    love.graphics.newImage('images/brickTopLeftW.png'),           -- 7 <^
+    love.graphics.newImage('images/brickTopMiddleW.png'),    -- 8 ^
+    love.graphics.newImage('images/brickMiddleW.png'),
+}
 METER_IN_PX = 64
 BUFFER = 0
 
@@ -60,7 +71,7 @@ vec4 effect(vec4 color, Image image, vec2 uvs, vec2 screen_coords)
 
 ]]
 
-
+COUNTER = 0
 function love.load()
     shader = love.graphics.newShader(shader_code)
     world = love.physics.newWorld(0, 0, true)  --create a world for the bodies to exist in with horizontal gravity of 0 and vertical gravity of 9.81

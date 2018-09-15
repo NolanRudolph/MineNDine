@@ -1,16 +1,19 @@
-local Tile = {}
+local Tile = {
+
+}
+
 
 Randomizer = require 'Randomizer'
---[[ tileX, tileY is Tile Position ]]--
 
-function Tile:new(x, y, type)
+function Tile:new(x, y, cycle)
     tile = {}
     setmetatable(tile, self)
+    self.__index = self
     tile.x = x
     tile.y = y
-    imagePicker = Randomizer:new()
-    tile.image = imagePicker:pickImage(type)
-    self.__index = self
+    tile.cycle = cycle
+
+    --[[ So shit gets messed up if you don't do this. ]]--
     tile.relX = x - WIDTH/2 + TILE_PX_SIZEX/2
     tile.relY = y - HEIGHT/2 + TILE_PX_SIZEY/2
     tile.hypot = math.sqrt(math.pow(tile.relX, 2) + math.pow(tile.relY, 2))
@@ -27,14 +30,12 @@ function Tile:new(x, y, type)
     end
 
     tile:setUp()
-    
     return tile
 end
 
+--[[ Shit also gets messed up if you don't do this, due to shit up there ^]]--
 function Tile:setUp()
-    if self.deg == 0 then
-        print('My degree is 0!')
-    elseif self.deg > 0 then
+    if self.deg > 0 then
         self.deg = self.deg + 180
         self.x = math.cos(math.rad(self.deg)) * self.hypot + 400
         self.y = math.sin(math.rad(self.deg)) * self.hypot + 400
@@ -45,21 +46,41 @@ function Tile:setUp()
     end
 end
 
+--[[ ]Rotates Tiles ]]--
+--[[
+    If any memory leaks occur, look here first. self.deg increases forever.
+    This isn't a big deal because I've tested it and normally it would
+    require 724 45 degree turns in the same direction (2^15) but I tested
+    it and it went past 724 turns. But still be weary.
+]]
 function Tile:rotate(direction)
     if direction == 'right' then
         self.deg = self.deg + 45
         self.x = math.cos(math.rad(self.deg)) * self.hypot + 400
         self.y = math.sin(math.rad(self.deg)) * self.hypot + 400
+        if self.cycle == 9 then
+        elseif self.cycle == 8 then
+            self.cycle = 1
+        else
+            self.cycle = self.cycle + 1
+        end
     elseif direction == 'left' then
         self.deg = self.deg - 45
         self.x = math.cos(math.rad(self.deg)) * self.hypot + 400
         self.y = math.sin(math.rad(self.deg)) * self.hypot + 400
+        if self.cycle == 9 then
+        elseif self.cycle == 1 then
+            self.cycle = 8
+        else
+            self.cycle = self.cycle - 1
+        end
     end
 end
 
---[[ Draw Tile (Call After tile:generateColor()) ]]--
+--[[ Draw Tile (Call After EVERYTHING_ELSE()) ]]--
 function Tile:render()
-    love.graphics.draw(self.image, self.x, self.y)
+    love.graphics.draw(TILE_CYCLE[self.cycle], self.x + HALF_TILEX, self.y + HALF_TILEY)  
+    -- + HALF_TILEX / + HALF_TILEY cuz self.hypot
 end
 
 
