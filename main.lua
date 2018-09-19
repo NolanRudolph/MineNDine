@@ -20,6 +20,17 @@ TILE_CYCLE = {
     love.graphics.newImage('images/brickTopLeftW.png'),           -- 7 <^
     love.graphics.newImage('images/brickTopMiddleW.png'),    -- 8 ^
     love.graphics.newImage('images/brickMiddleW.png'),
+    love.graphics.newImage('images/turnedBrick.png'),
+    love.graphics.newImage('images/turnedBrickTopLeft.png'),
+    love.graphics.newImage('images/turnedBrickTopRight.png'),
+    love.graphics.newImage('images/turnedBrickBottomRight.png'),
+    love.graphics.newImage('images/turnedBrickBottomLeft.png'),
+    love.graphics.newImage('images/turnedBrickLeftMiddle.png'),
+    love.graphics.newImage('images/turnedBrickRightMiddle.png'),
+    love.graphics.newImage('images/turnedBrickTopMiddle.png'),
+    love.graphics.newImage('images/turnedBrickBottomMiddle.png'),
+
+
 }
 METER_IN_PX = 64
 BUFFER = 0
