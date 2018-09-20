@@ -54,6 +54,9 @@ function World:checkEntries()
         table.insert(self.rooms, Room:new(_, self.currentRoom[1], self.currentRoom[2], myIndex))
         self.rooms[myIndex]:initTiles()
         self.currentIndex = self.rooms[myIndex].index
+        if GLOBAL_ANGLE % 2 ~= 0 then
+            self.rooms[myIndex]:turnTiles('right')
+        end
         print("Made a Room!")
     end
 end

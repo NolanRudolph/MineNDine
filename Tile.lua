@@ -14,8 +14,8 @@ function Tile:new(x, y, cycle)
     tile.cycle = cycle
 
     --[[ So shit gets messed up if you don't do this. ]]--
-    tile.relX = x - WIDTH/2 + TILE_PX_SIZEX/2
-    tile.relY = y - HEIGHT/2 + TILE_PX_SIZEY/2
+    tile.relX = tile.x - WIDTH/2 + TILE_PX_SIZEX/2
+    tile.relY = tile.y - HEIGHT/2 + TILE_PX_SIZEY/2
     tile.hypot = math.sqrt(math.pow(tile.relX, 2) + math.pow(tile.relY, 2))
     if tile.relY < 0 then 
         tile.deg = math.deg(math.acos(tile.relX/tile.hypot))

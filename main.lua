@@ -34,7 +34,20 @@ TILE_CYCLE = {
 
 }
 METER_IN_PX = 64
-BUFFER = 0
+
+--[[
+    GLOBAL_ANGLE starts at 0. Every angle change, it bumps up one or down one.
+    When GLOBAL_ANGLE % 2 ~= 0, then it's off angled. This only matters for
+    room initialization because who knows if the next room was 180 degrees
+    off or not, as long as its angled.
+
+    It gets tricky when you re-enter a room you've already initialized. 
+    I ended up using a system of differences, where each room has its own
+    last remembered angle, and compared it with GLOBAL_ANGLE upon resurface.
+    It turns left or right how many the difference is, wrt neagtive and positive
+    respectively.
+]]-- 
+GLOBAL_ANGLE = 0  
 
 local shader_code = [[
 
@@ -101,11 +114,31 @@ function love.load()
 end
 
 function love.keypressed(key)
+    --[[
+        Stuff starts to get complicated here. This is where my difference
+        comparison method makes its first appearance. Every time you
+        change the angle of a room, you have to make sure to set it back
+        to the GLOBAL_ANGLE because, well, that's the current angle of the
+        current room as well as globally.
+    ]]--
     if key == 'q' then
         World.rooms[World.currentIndex]:turnTiles('left')
-
+        if GLOBAL_ANGLE - 1 == -8 then
+            GLOBAL_ANGLE = 0
+            World.rooms[World.currentIndex].angle = GLOBAL_ANGLE
+        else
+            GLOBAL_ANGLE = GLOBAL_ANGLE - 1
+            World.rooms[World.currentIndex].angle = GLOBAL_ANGLE     
+        end
     elseif key == 'e' then
         World.rooms[World.currentIndex]:turnTiles('right')
+        if GLOBAL_ANGLE + 1 == 8 then
+            GLOBAL_ANGLE = 0
+            World.rooms[World.currentIndex].angle = GLOBAL_ANGLE
+        else
+            GLOBAL_ANGLE = GLOBAL_ANGLE + 1
+            World.rooms[World.currentIndex].angle = GLOBAL_ANGLE
+        end
     end
 end
 
@@ -131,7 +164,33 @@ function love.update(dt)  -- Updates Every dt (Delta Time)
         World.currentRoom[1] = World.currentRoom[1] - 1  -- Decrease World's RoomX
         print('{' .. World.currentRoom[1] .. ', ' .. World.currentRoom[2] .. '}')
         Hero.body:setLinearVelocity(0, 0)
+
+        --[[
+            This part is redundant in room switches, but it's required.
+            The reason is because of Lua's poor ability to use global
+            variables, and how the scope of local variables is limited.
+            You'll find this in every room chance sequence, and what it
+            essentially does is compare the rooms angle to GLOBAL_ANGLE,
+            and turns the room accordingly.
+        ]]--
         World:checkEntries()
+        local dif = GLOBAL_ANGLE - World.rooms[World.currentIndex].angle
+        if dif ~= 0 then
+            if dif > 0 then
+                for i = 1, dif do
+                    print('I want to turn right.')
+                    World.rooms[World.currentIndex]:turnTiles('right')
+                    World.rooms[World.currentIndex].angle = GLOBAL_ANGLE
+                end
+            else
+                for i = 1, math.abs(dif) do
+                    print('I want to turn left.')
+                    World.rooms[World.currentIndex]:turnTiles('left')
+                    World.rooms[World.currentIndex].angle = GLOBAL_ANGLE
+                end
+            end
+        end
+
         Hero.roomCooldown = 1000
         Hero.body:setX(810)
 
@@ -146,6 +205,23 @@ function love.update(dt)  -- Updates Every dt (Delta Time)
         print('{' .. World.currentRoom[1] .. ', ' .. World.currentRoom[2] .. '}')
         Hero.body:setLinearVelocity(0, 0)
         World:checkEntries()
+        local dif = GLOBAL_ANGLE - World.rooms[World.currentIndex].angle
+        if dif ~= 0 then
+            if dif > 0 then
+                for i = 1, dif do
+                    print('I want to turn right.')
+                    World.rooms[World.currentIndex]:turnTiles('right')
+                    World.rooms[World.currentIndex].angle = GLOBAL_ANGLE
+                end
+            else
+                for i = 1, math.abs(dif) do
+                    print('I want to turn left.')
+                    World.rooms[World.currentIndex]:turnTiles('left')
+                    World.rooms[World.currentIndex].angle = GLOBAL_ANGLE
+                end
+            end
+        end
+
         Hero.roomCooldown = 1000
         Hero.body:setX(-60)
 
@@ -160,6 +236,23 @@ function love.update(dt)  -- Updates Every dt (Delta Time)
         print('{' .. World.currentRoom[1] .. ', ' .. World.currentRoom[2] .. '}')
         Hero.body:setLinearVelocity(0, 0)
         World:checkEntries()
+        local dif = GLOBAL_ANGLE - World.rooms[World.currentIndex].angle
+        if dif ~= 0 then
+            if dif > 0 then
+                for i = 1, dif do
+                    print('I want to turn right.')
+                    World.rooms[World.currentIndex]:turnTiles('right')
+                    World.rooms[World.currentIndex].angle = GLOBAL_ANGLE
+                end
+            else
+                for i = 1, math.abs(dif) do
+                    print('I want to turn left.')
+                    World.rooms[World.currentIndex]:turnTiles('left')
+                    World.rooms[World.currentIndex].angle = GLOBAL_ANGLE
+                end
+            end
+        end
+
         Hero.roomCooldown = 1000
         Hero.body:setY(810)
 
@@ -174,9 +267,25 @@ function love.update(dt)  -- Updates Every dt (Delta Time)
         print('{' .. World.currentRoom[1] .. ', ' .. World.currentRoom[2] .. '}')
         Hero.body:setLinearVelocity(0, 0)
         World:checkEntries()
+        local dif = GLOBAL_ANGLE - World.rooms[World.currentIndex].angle
+        if dif ~= 0 then
+            if dif > 0 then
+                for i = 1, dif do
+                    print('I want to turn right.')
+                    World.rooms[World.currentIndex]:turnTiles('right')
+                    World.rooms[World.currentIndex].angle = GLOBAL_ANGLE
+                end
+            else
+                for i = 1, math.abs(dif) do
+                    print('I want to turn left.')
+                    World.rooms[World.currentIndex]:turnTiles('left')
+                    World.rooms[World.currentIndex].angle = GLOBAL_ANGLE
+                end
+            end
+        end
+
         Hero.roomCooldown = 1000
         Hero.body:setY(-90)
-
     end
 end
 

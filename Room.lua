@@ -20,24 +20,26 @@ function Room:new(room, IDX, IDY, index)
     room.IDX = IDX
     room.IDY = IDY
     room.index = index
+    room.angle = GLOBAL_ANGLE
     self.__index = self
     return room
 end
 
 function Room:initTiles()
     local axisY = 0
+    
     for axisY = 0, HEIGHT/TILE_PX_SIZEY do
         local actualY = (axisY - Y_ADJUST) * TILE_PX_SIZEY
         local axisX = 0
-        for axisX = 0, WIDTH/TILE_PX_SIZEX do
 
+        for axisX = 0, WIDTH/TILE_PX_SIZEX do
             local image
             local actualX = (axisX - X_ADJUST) * TILE_PX_SIZEX
             local hypot = math.sqrt(math.pow(actualX+16, 2) + math.pow(actualY+16, 2))
             local deg = math.deg(math.acos(actualX/hypot)) 
             local newX = axisX * TILE_PX_SIZEX
             local newY = axisY * TILE_PX_SIZEY
-
+            
             if hypot <= 400 then
                 if MIDHYPOT >= hypot then
                     table.insert(self.tiles, Tile:new(newX, newY, 17))
