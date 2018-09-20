@@ -11,24 +11,25 @@ World = require 'World'
 Room = require 'Room'
 
 TILE_CYCLE = {
-    love.graphics.newImage('images/brickTopRightW.png'),     -- 1 ^>
-    love.graphics.newImage('images/brickRightMiddleW.png'),  -- 2 >
-    love.graphics.newImage('images/brickBottomRightW.png'),  -- 3 .>
-    love.graphics.newImage('images/brickBottomMiddleW.png'),     -- 4 .
-    love.graphics.newImage('images/brickBottomLeftW.png'),       -- 5 <.
-    love.graphics.newImage('images/brickLeftMiddleW.png'),       -- 6 <
-    love.graphics.newImage('images/brickTopLeftW.png'),           -- 7 <^
-    love.graphics.newImage('images/brickTopMiddleW.png'),    -- 8 ^
-    love.graphics.newImage('images/brickMiddleW.png'),
-    love.graphics.newImage('images/turnedBrick.png'),
-    love.graphics.newImage('images/turnedBrickTopLeft.png'),
-    love.graphics.newImage('images/turnedBrickTopRight.png'),
-    love.graphics.newImage('images/turnedBrickBottomRight.png'),
-    love.graphics.newImage('images/turnedBrickBottomLeft.png'),
-    love.graphics.newImage('images/turnedBrickLeftMiddle.png'),
-    love.graphics.newImage('images/turnedBrickRightMiddle.png'),
-    love.graphics.newImage('images/turnedBrickTopMiddle.png'),
-    love.graphics.newImage('images/turnedBrickBottomMiddle.png'),
+    love.graphics.newImage('images/brickTopRightW.png'),           -- 1:1 (1)
+    love.graphics.newImage('images/brickTopMiddleW.png'),          -- 2:1 (2)
+    love.graphics.newImage('images/turnedBrickRightMiddle.png'),   -- 1:2 (3)
+    love.graphics.newImage('images/turnedBrickTopRight.png'),      -- 2:2 (4)
+    love.graphics.newImage('images/brickBottomRightW.png'),        -- 1:3 (5)
+    love.graphics.newImage('images/brickRightMiddleW.png'),        -- 2:3 (6)
+    love.graphics.newImage('images/turnedBrickBottomMiddle.png'),  -- 1:4 (7)
+    love.graphics.newImage('images/turnedBrickBottomRight.png'),   -- 2:4 (8)
+    love.graphics.newImage('images/brickBottomLeftW.png'),         -- 1:5 (9)
+    love.graphics.newImage('images/brickBottomMiddleW.png'),       -- 2:5 (10)
+    love.graphics.newImage('images/turnedBrickLeftMiddle.png'),    -- 1:6 (11)
+    love.graphics.newImage('images/turnedBrickBottomLeft.png'),    -- 2:6 (12)
+    love.graphics.newImage('images/brickTopLeftW.png'),            -- 1:7 (13)
+    love.graphics.newImage('images/brickLeftMiddleW.png'),         -- 2:7 (14)
+    love.graphics.newImage('images/turnedBrickTopMiddle.png'),     -- 1:8 (15)
+    love.graphics.newImage('images/turnedBrickTopLeft.png'),       -- 2:8 (16)
+    love.graphics.newImage('images/brickMiddleW.png'),             -- 3:1 (17)
+    love.graphics.newImage('images/turnedBrick.png'),              -- 3:2 (18)
+    love.graphics.newImage('images/testBrick.png'),  -- (19) --[[ TESTING ]]--
 
 
 }
@@ -196,7 +197,7 @@ function love.draw()  -- Updates Every Frame
     shader:send("lights[0].diffuse", {
         1, 1, 1
     })
-    shader:send("lights[0].power", 15)
+    shader:send("lights[0].power", 20)
 
 
     World.rooms[World.currentIndex]:renderTiles()

@@ -40,37 +40,37 @@ function Room:initTiles()
 
             if hypot <= 400 then
                 if MIDHYPOT >= hypot then
-                    table.insert(self.tiles, Tile:new(newX, newY, 9))
+                    table.insert(self.tiles, Tile:new(newX, newY, 17))
                 elseif deg >= 25 and deg <= 65 then
                     if axisY < Y_ADJUST then
-                        table.insert(self.tiles, Tile:new(newX, newY, 7))  -- For Tile:setUp()
+                        table.insert(self.tiles, Tile:new(newX, newY, 13))
                     else
-                        table.insert(self.tiles, Tile:new(newX, newY, 3))
+                        table.insert(self.tiles, Tile:new(newX, newY, 5))
                     end
                 elseif deg >= 65 and deg <= 115 then
                     if axisY < Y_ADJUST then
-                        table.insert(self.tiles, Tile:new(newX, newY, 8))
+                        table.insert(self.tiles, Tile:new(newX, newY, 2))
                     else
-                        table.insert(self.tiles, Tile:new(newX, newY, 4))
+                        table.insert(self.tiles, Tile:new(newX, newY, 10))
                     end
                 elseif deg >= 115 and deg <= 155 then
                     if axisY < Y_ADJUST then
-                        table.insert(self.tiles, Tile:new(newX, newY, 1))  -- For Tile:setUp()
+                        table.insert(self.tiles, Tile:new(newX, newY, 1))
                     else
-                        table.insert(self.tiles, Tile:new(newX, newY, 5))
+                        table.insert(self.tiles, Tile:new(newX, newY, 9))
                     end
                 else
                     if axisY < Y_ADJUST then
                         if axisX < X_ADJUST then
-                            table.insert(self.tiles, Tile:new(newX, newY, 2))  -- For Tile:setUp()
-                        else
                             table.insert(self.tiles, Tile:new(newX, newY, 6))  -- For Tile:setUp()
+                        else
+                            table.insert(self.tiles, Tile:new(newX, newY, 14))  -- For Tile:setUp()
                         end
                     else
                         if axisX < X_ADJUST then
-                            table.insert(self.tiles, Tile:new(newX, newY, 6))  -- For Tile:setUp()
+                            table.insert(self.tiles, Tile:new(newX, newY, 14))  -- For Tile:setUp()
                         else
-                            table.insert(self.tiles, Tile:new(newX, newY, 2))  -- For Tile:setUp()
+                            table.insert(self.tiles, Tile:new(newX, newY, 6))  -- For Tile:setUp()
                         end
                     end
                 end

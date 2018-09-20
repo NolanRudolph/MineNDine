@@ -60,49 +60,39 @@ function Tile:rotate(direction)
         self.x = math.cos(math.rad(self.deg)) * self.hypot + 400
         self.y = math.sin(math.rad(self.deg)) * self.hypot + 400
         self.count = self.count + 1
-        if self.cycle == 9 then
-        elseif self.cycle == 8 then
+        if self.cycle == 17 then
+            self.cycle = 18
+        elseif self.cycle == 18 then
+            self.cycle = 17
+        elseif self.cycle == 15 then
             self.cycle = 1
+        elseif self.cycle == 16 then
+            self.cycle = 2
         else
-            self.cycle = self.cycle + 1
+            self.cycle = self.cycle + 2
         end
     elseif direction == 'left' then
         self.deg = self.deg - 45
         self.x = math.cos(math.rad(self.deg)) * self.hypot + 400
         self.y = math.sin(math.rad(self.deg)) * self.hypot + 400
-        if self.cycle == 9 then
+        if self.cycle == 17 then
+            self.cycle = 18
+        elseif self.cycle == 18 then
+            self.cycle = 17
         elseif self.cycle == 1 then
-            self.cycle = 8
+            self.cycle = 15
+        elseif self.cycle == 2 then
+            self.cycle = 16
         else
-            self.cycle = self.cycle - 1
+            self.cycle = self.cycle - 2
         end
     end
 end
 
 --[[ Draw Tile (Call After EVERYTHING_ELSE()) ]]--
 function Tile:render()
-    if self.cycle == 9 and self.count ~= 0 then
-        self.cycle = 10
-    elseif self.cycle == 7 and self.count ~= 0 then
-        self.cycle = 11
-    elseif self.cycle == 1 and self.count ~= 0 then
-        self.cycle = 12
-    elseif self.cycle == 3 and self.count ~= 0 then
-        self.cycle = 13
-    elseif self.cycle == 5 and self.count ~= 0 then
-        self.cycle = 14
-    elseif self.cycle == 6 and self.count ~= 0 then
-        self.cycle = 15
-    elseif self.cycle == 2 and self.count ~= 0 then
-        self.cycle = 16
-    elseif self.cycle == 8 and self.count ~= 0 then
-        self.cycle = 17
-    elseif self.cycle == 4 and self.count ~= 0 then
-        self.cycle = 18
-    end
     love.graphics.draw(TILE_CYCLE[self.cycle], self.x + HALF_TILEX, self.y + HALF_TILEY)  
     -- + HALF_TILEX / + HALF_TILEY cuz self.hypot
-
 
 end
 
